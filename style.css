@@ -1,0 +1,116 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header styling */
+.header {
+    background-color: #fff;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    position: sticky;
+    top: 0;
+}
+
+.navigation {
+    margin-top: 10px;
+}
+
+.navigation button {
+    padding: 0.5rem 0.75rem;
+    margin: 0 0.5rem;
+}
+
+
+/* Calendar Grid Styling for Full-Screen Usage */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);  /* Seven equal columns */
+    gap: 5px;
+    padding: 1rem;
+    width: 100%;                          /* Use full available width */
+    /* max-width: 800px; */                /* Removed fixed max-width */
+    margin: 1rem 0;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Styling the day headers */
+.day-header {
+    background: #eaeaea;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #ddd;
+}
+
+/* Styling for the date cells */
+.date-cell {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    min-height: 200px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.date-cell:hover {
+    background: #f0f0f0;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 2rem;
+    margin: auto;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Utility class to show modal */
+.modal.active {
+    display: flex;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .calendar-grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 3px;
+        padding: 0.5rem;
+    }
+    
+    .date-cell {
+        padding: 10px;
+        min-height: 60px;
+    }
+}
