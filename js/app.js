@@ -1,6 +1,71 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Function to load tasks from the backend using a GET request.
-    function loadTasks() {
+document.addEventListener("DOMContentLoaded", function () {
+    // Initialize current date reference (defaults to today)
+    let currentDate = new Date();
+
+    // Function to update the calendar with the correct week
+    function updateCalendar() {
+        const startOfWeek = new Date(currentDate);
+        startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay()); // Move to Sunday
+
+        // Weekday names for the calendar
+        const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+        // Update week display
+        document.getElementById("weekDisplay").textContent =
+            `Week of ${startOfWeek.toDateString()}`;
+
+        // Clear current grid
+        const calendarGrid = document.getElementById("calendarGrid");
+        calendarGrid.innerHTML = "";
+
+        // Add weekday headers
+        weekdays.forEach(day => {
+            const dayHeader = document.createElement("div");
+            dayHeader.classList.add("day-header");
+            dayHeader.textContent = day;
+            calendarGrid.appendChild(dayHeader);
+        });
+
+        // Populate calendar dates dynamically
+        for (let i = 0; i < 7; i++) {
+            const dayDate = new Date(startOfWeek);
+            dayDate.setDate(startOfWeek.getDate() + i);
+
+            // Create a date cell
+            const cell = document.createElement("div");
+            cell.classList.add("date-cell");
+            cell.textContent = dayDate.getDate(); // Display only day number
+            cell.dataset.date = dayDate.toISOString().split("T")[0]; // Store full date for backend matching
+
+            // Attach event listener for opening modal
+            cell.addEventListener("click", function () {
+                document.getElementById("task-modal").classList.add("active");
+                document.getElementById("taskDate").value = this.dataset.date;
+            });
+
+            calendarGrid.appendChild(cell);
+        }
+
+        // Load tasks for the current week
+        loadTasks(startOfWeek);
+    }
+
+    // Navigation buttons
+    document.getElementById("prevWeek").addEventListener("click", function () {
+        currentDate.setDate(currentDate.getDate() - 7); // Move back a week
+        updateCalendar();
+    });
+
+    document.getElementById("nextWeek").addEventListener("click", function () {
+        currentDate.setDate(currentDate.getDate() + 7); // Move forward a week
+        updateCalendar();
+    });
+
+    // Function to load tasks from the backend using a GET request
+    function loadTasks(weekStart) {
+        const weekEnd = new Date(weekStart);
+        weekEnd.setDate(weekStart.getDate() + 6); // End of the current week
+
         fetch("http://localhost:3000/tasks")
             .then(response => {
                 if (!response.ok) {
@@ -9,35 +74,35 @@ document.addEventListener("DOMContentLoaded", function() {
                 return response.json();
             })
             .then(data => {
-                // data is an object like { tasks: [ ... ] }
-                displayTasks(data.tasks);
+                displayTasks(data.tasks, weekStart, weekEnd);
             })
             .catch(error => {
                 console.error("Error loading tasks:", error);
             });
     }
 
-    // Function to display tasks within their corresponding calendar cells.
-    // Assumes each .date-cell displays a day number matching the task's date day.
-    function displayTasks(tasks) {
-        // Convert NodeList of .date-cell elements into an array
+    // Function to display tasks within their corresponding calendar cells
+    function displayTasks(tasks, weekStart, weekEnd) {
         const cells = Array.from(document.querySelectorAll(".date-cell"));
+
         tasks.forEach(task => {
-            // Extract the day number from the task.date
-            const taskDay = new Date(task.date).getDate();
-            // Find the cell where the text content (day) matches taskDay
-            const cell = cells.find(c => c.textContent.trim() == taskDay);
-            if (cell) {
-                // Create a new element to display the task title
-                const taskItem = document.createElement("div");
-                taskItem.textContent = task.title;
-                taskItem.classList.add("task-item");
-                cell.appendChild(taskItem);
+            const taskDate = new Date(task.date);
+            const taskDay = taskDate.getDate();
+
+            // Ensure the task is **within the displayed week**
+            if (taskDate >= weekStart && taskDate <= weekEnd) {
+                const cell = cells.find(c => c.dataset.date === task.date); // Match with correct date
+                if (cell) {
+                    const taskItem = document.createElement("div");
+                    taskItem.textContent = task.title;
+                    taskItem.classList.add("task-item");
+                    cell.appendChild(taskItem);
+                }
             }
         });
     }
 
-    // Function to send a POST request to create a new task.
+    // Function to send a POST request to create a new task
     function createTask(taskData) {
         fetch("http://localhost:3000/tasks", {
             method: "POST",
@@ -46,27 +111,24 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             body: JSON.stringify(taskData)
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Failed to create task");
-            }
-            return response.json();
-        })
-        .then(newTask => {
-            console.log("Created Task:", newTask);
-            // Update the UI immediately by appending the new task to its cell.
-            appendTaskToCell(newTask);
-        })
-        .catch(error => {
-            console.error("Error creating task:", error);
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to create task");
+                }
+                return response.json();
+            })
+            .then(newTask => {
+                appendTaskToCell(newTask);
+            })
+            .catch(error => {
+                console.error("Error creating task:", error);
+            });
     }
 
-    // Function to append a new task element to the correct calendar cell.
+    // Function to append a new task element to the correct calendar cell
     function appendTaskToCell(task) {
         const cells = Array.from(document.querySelectorAll(".date-cell"));
-        const taskDay = new Date(task.date).getDate();
-        const cell = cells.find(c => c.textContent.trim() == taskDay);
+        const cell = cells.find(c => c.dataset.date === task.date);
         if (cell) {
             const taskItem = document.createElement("div");
             taskItem.textContent = task.title;
@@ -75,58 +137,35 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Initial load: fetch and display tasks from the backend.
-    loadTasks();
+    // Initial load: fetch and display tasks from the backend
+    updateCalendar();
 
-    // Get references to modal elements.
-    const modal = document.getElementById("task-modal");
-    const closeModalButton = document.getElementById("close-modal");
-
-    // When the close button is clicked, hide the modal.
-    closeModalButton.addEventListener("click", function() {
-        modal.classList.remove("active");
+    // Close modal functionality
+    document.getElementById("close-modal").addEventListener("click", function () {
+        document.getElementById("task-modal").classList.remove("active");
     });
 
-    // Add click event listeners to each date cell to open the modal.
-    document.querySelectorAll(".date-cell").forEach(cell => {
-        cell.addEventListener("click", function() {
-            // Open the modal.
-            modal.classList.add("active");
+    // Handle task form submission
+    document.getElementById("taskForm").addEventListener("submit", function (e) {
+        e.preventDefault();
 
-            // Set the default value of the task date field based on the clicked cell.
-            // This assumes there's an input element with the id "taskDate" in the modal.
-            let currentYear = new Date().getFullYear();
-            let currentMonth = (new Date().getMonth() + 1).toString().padStart(2, "0");
-            let day = cell.textContent.trim().padStart(2, "0");
-            document.getElementById("taskDate").value = `${currentYear}-${currentMonth}-${day}`;
-        });
-    });
-
-    // Handle the form submission for creating a new task.
-    // Assumes there is a form with id "taskForm" in the modal, along with inputs:
-    // "taskDate", "taskTitle", and "taskDescription".
-    document.getElementById("taskForm").addEventListener("submit", function(e) {
-        e.preventDefault(); // Prevent the default form submission.
-
-        // Gather values from the form fields.
+        // Gather values from the form fields
         const taskDate = document.getElementById("taskDate").value;
         const taskTitle = document.getElementById("taskTitle").value;
         const taskDescription = document.getElementById("taskDescription").value;
 
-        // Create a task object from the form data.
+        // Create a task object from the form data
         const newTaskData = {
             date: taskDate,
             title: taskTitle,
             description: taskDescription
         };
 
-        // Send a POST request to create the new task.
+        // Send a POST request to create the new task
         createTask(newTaskData);
 
-        // Optionally, clear the form after submission.
+        // Clear the form and close the modal
         document.getElementById("taskForm").reset();
-
-        // Close the modal.
-        modal.classList.remove("active");
+        document.getElementById("task-modal").classList.remove("active");
     });
 });

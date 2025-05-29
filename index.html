@@ -1,53 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Calendar App</title>
-        <link rel="stylesheet" href="./style.css">
-        <script src="./js/app.js"></script>
-    </head>
-    <body>
-        <!-- Header -->
-        <header class="header">
-            <h1>CBS Weekly Calendar</h1>
-            <div class="navigation">
-                <button id="prev-month">◀</button>
-                <span id="current-month">May 2025</span>
-                <button id="next-month">▶</button>
-            </div>
-        </header>
-
-        <!-- Calendar Grid -->
-        <main>
-            <div class="calendar-grid">
-                <!-- Days of Week Header -->
-                <div class="day-header">Sun</div>
-                <div class="day-header">Mon</div>
-                <div class="day-header">Tue</div>
-                <div class="day-header">Wed</div>
-                <div class="day-header">Thu</div>
-                <div class="day-header">Fri</div>
-                <div class="day-header">Sat</div>
-                <!-- Dummy Date Cells -->
-                <div class="date-cell">1</div>
-                <div class="date-cell">2</div>
-                <div class="date-cell">3</div>
-                <div class="date-cell">4</div>
-                <div class="date-cell">5</div>
-                <div class="date-cell">6</div>
-                <div class="date-cell">7</div>
-                <!-- ...more cells as needed -->
-            </div>
-        </main>
-
-        <!-- Static Modal for Task Input -->
-        <div class="modal" id="task-modal">
-            <div class="modal-content">
-                <h2>Add a Task</h2>
-                <p>This is a dummy modal for task input.</p>
-                <button id="close-modal">Close</button>
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Calendar</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="./js/app.js" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>My Weekly Calendar</h1>
+        <div class="navigation">
+            <button id="prevWeek" class="nav-btn">&lt;</button>
+            <span id="weekDisplay"></span>
+            <button id="nextWeek" class="nav-btn">&gt;</button>
         </div>
-    </body>
+    </header>
+
+
+    <!-- Calendar Grid (Updated Dynamically) -->
+    <main>
+        <div class="calendar-grid" id="calendarGrid"></div>
+    </main>
+
+    <!-- Modal for Adding a Task -->
+    <div class="modal" id="task-modal">
+        <div class="modal-content">
+            <h2>Add a Task</h2>
+            <form id="taskForm">
+                <!-- Date Input -->
+                <label for="taskDate">Date:</label>
+                <input type="date" id="taskDate" name="taskDate" required>
+
+                <!-- Title Input -->
+                <label for="taskTitle">Title:</label>
+                <input type="text" id="taskTitle" name="taskTitle" required>
+
+                <!-- Description Input -->
+                <label for="taskDescription">Description:</label>
+                <textarea id="taskDescription" name="taskDescription"></textarea>
+
+                <!-- Submit Button -->
+                <button type="submit">Add Task</button>
+            </form>
+            <button id="close-modal">Close</button>
+        </div>
+    </div>
+
+</body>
 </html>

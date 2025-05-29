@@ -1,116 +1,129 @@
-/* Basic Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
     color: #333;
-}
-
-/* Header styling */
-.header {
-    background-color: #fff;
-    padding: 1rem;
-    border-bottom: 1px solid #ddd;
+    margin: 0;
+    padding: 20px;
     text-align: center;
-    position: sticky;
-    top: 0;
 }
 
+/* Calendar Navigation */
 .navigation {
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 15px;
 }
 
-.navigation button {
-    padding: 0.5rem 0.75rem;
-    margin: 0 0.5rem;
+.nav-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #333;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease;
 }
 
+.nav-btn:hover {
+    color: #007bff;
+}
 
-/* Calendar Grid Styling for Full-Screen Usage */
+/* Calendar Grid */
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);  /* Seven equal columns */
-    gap: 5px;
-    padding: 1rem;
-    width: 100%;                          /* Use full available width */
-    /* max-width: 800px; */                /* Removed fixed max-width */
-    margin: 1rem 0;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-
-/* Styling the day headers */
-.day-header {
-    background: #eaeaea;
-    padding: 10px;
-    text-align: center;
-    font-weight: bold;
-    border: 1px solid #ddd;
-}
-
-/* Styling for the date cells */
-.date-cell {
-    background: #fff;
-    border: 1px solid #ddd;
+    grid-template-columns: repeat(7, 1fr); 
+    gap: 10px;
     padding: 15px;
+    margin: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Weekday Headers */
+.day-header {
+    font-weight: bold;
     text-align: center;
-    min-height: 200px;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+}
+
+/* Date Cells */
+.date-cell {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 14px;
+    text-align: center;
     cursor: pointer;
-    transition: background 0.2s;
+    font-size: 18px;
+    border-radius: 6px;
+    transition: background 0.3s ease, transform 0.1s ease;
+    min-width: 0;
 }
 
 .date-cell:hover {
-    background: #f0f0f0;
+    background-color: #e3f2fd;
+    transform: scale(1.05);
+}
+
+/* Task Item */
+.task-item {
+    margin-top: 8px;
+    background-color: #007bff;
+    color: white;
+    padding: 6px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-wrap: wrap;
 }
 
 /* Modal Styles */
 .modal {
     display: none;
     position: fixed;
-    z-index: 1000;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
-.modal-content {
-    background: #fff;
-    padding: 2rem;
-    margin: auto;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    border-radius: 5px;
-    text-align: center;
-}
-
-/* Utility class to show modal */
 .modal.active {
     display: flex;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    .calendar-grid {
-        grid-template-columns: repeat(7, 1fr);
-        gap: 3px;
-        padding: 0.5rem;
-    }
-    
-    .date-cell {
-        padding: 10px;
-        min-height: 60px;
-    }
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Close Button */
+#close-modal {
+    margin-top: 12px;
+    border: none;
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#close-modal:hover {
+    background-color: #c82333;
 }
