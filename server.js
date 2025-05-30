@@ -1,6 +1,7 @@
 // Import required modules
 const express = require("express");
 const cors = require("cors");
+const path = require('path');
 
 // Create an instance of Express
 const app = express();
@@ -14,8 +15,15 @@ app.use(cors());
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
+app.use(express.static(path.join(__dirname, '/public')));
+
 // In-memory storage for tasks (temporary; in production, you'd use a database)
 let tasks = [];
+
+//Main page!!
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '/index.html'));
+});
 
 // GET endpoint to retrieve all tasks
 app.get("/tasks", (req, res) => {
@@ -67,6 +75,25 @@ app.put("/tasks/:id", (req, res) => {
     // Respond with the updated task
     res.json(task);
 });
+
+// GET endpoint to update an existing task
+app.get("/tasks/:id", (req, res) => {
+    // Get the task id from the URL parameters (as a number)
+    const taskId = Number(req.params.id);
+
+    // Find the task by its id
+    const task = tasks.find(t => t.id === taskId);
+
+    // If the task does not exist, respond with a 404 error
+    if (!task) {
+        return res.status(404).json({ error: "Task not found" });
+    }
+
+
+    // Respond with the  task
+    res.json(task);
+});
+
 
 // DELETE endpoint to remove a task
 app.delete("/tasks/:id", (req, res) => {

@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Attach event listener for opening modal
             cell.addEventListener("click", function () {
-                document.getElementById("task-modal").classList.add("active");
+                document.getElementById("task-modal-add").classList.add("active");
                 document.getElementById("taskDate").value = this.dataset.date;
             });
 
@@ -96,7 +96,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     const taskItem = document.createElement("div");
                     taskItem.textContent = task.title;
                     taskItem.classList.add("task-item");
+                    taskItem.setAttribute("id",task.id);
+                    
+                    // Attach event listener for opening modal
+                    cell.addEventListener("click", function () {
+                        document.getElementById("task-modal-modify").classList.add("active");
+                    });
+
                     cell.appendChild(taskItem);
+                    //make task cell a clickable button
                 }
             }
         });
@@ -133,6 +141,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const taskItem = document.createElement("div");
             taskItem.textContent = task.title;
             taskItem.classList.add("task-item");
+            taskItem.setAttribute("id",task.id);
+            // Attach event listener for opening modal
+            cell.addEventListener("click", function () {
+                document.getElementById("task-modal-modify").classList.add("active");
+            });
             cell.appendChild(taskItem);
         }
     }
@@ -142,7 +155,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Close modal functionality
     document.getElementById("close-modal").addEventListener("click", function () {
-        document.getElementById("task-modal").classList.remove("active");
+        document.getElementById("task-modal-add").classList.remove("active");
+        document.getElementById("task-modal-modify").classList.remove("active");
     });
 
     // Handle task form submission
@@ -166,6 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Clear the form and close the modal
         document.getElementById("taskForm").reset();
-        document.getElementById("task-modal").classList.remove("active");
+        document.getElementById("task-modal-add").classList.remove("active");
+        document.getElementById("task-modal-modify").classList.remove("active");
     });
 });
