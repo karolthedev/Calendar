@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Attach event listener for opening modal
             cell.addEventListener("click", function () {
-                document.getElementById("task-modal-add").classList.add("active");
+                document.getElementById("task-modal").classList.add("active");
                 document.getElementById("taskDate").value = this.dataset.date;
             });
 
@@ -98,10 +98,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     taskItem.classList.add("task-item");
                     taskItem.setAttribute("id",task.id);
                     
-                    // Attach event listener for opening modal
-                    cell.addEventListener("click", function () {
-                        document.getElementById("task-modal-modify").classList.add("active");
-                    });
+                    //click to open modal
+                    taskItem.addEventListener("click", function () {
+                        document.getElementById("task-modal").classList.add("active");
+                        getTask(task.id);
+            });
 
                     cell.appendChild(taskItem);
                     //make task cell a clickable button
@@ -133,6 +134,71 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
+    // Function to send a GET request to get task info
+    function getTask(taskId) {
+        fetch("http://localhost:3000/tasks/"+taskId, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to get task");
+                }
+                return response.json();
+            })
+            .then(newTask => {
+                updateTaskToModal(newTask);
+            })
+            .catch(error => {
+                console.error("Error creating task:", error);
+            });
+    }
+
+    // Function to send a POST request to create a new task
+    function updateTask(taskId,taskData) {
+        fetch("http://localhost:3000/tasks/"+taskId, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(taskData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to create task");
+                }
+                return response.json();
+            })
+            .then(newTask => {
+                updateTaskInCell(taskId, newTask);
+            })
+            .catch(error => {
+                console.error("Error creating task:", error);
+            });
+    }
+    // Function to send a Delete request to delete a task
+    function deleteTask(taskId) {
+        fetch("http://localhost:3000/tasks/"+taskId, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to create task");
+                }
+                return response.json();
+            })
+            .then(
+                deleteTaskInCell(taskId)
+            )
+            .catch(error => {
+                console.error("Error creating task:", error);
+            });
+    }
     // Function to append a new task element to the correct calendar cell
     function appendTaskToCell(task) {
         const cells = Array.from(document.querySelectorAll(".date-cell"));
@@ -142,12 +208,33 @@ document.addEventListener("DOMContentLoaded", function () {
             taskItem.textContent = task.title;
             taskItem.classList.add("task-item");
             taskItem.setAttribute("id",task.id);
-            // Attach event listener for opening modal
-            cell.addEventListener("click", function () {
-                document.getElementById("task-modal-modify").classList.add("active");
+
+            //click to open modal
+            taskItem.addEventListener("click", function () {
+                document.getElementById("task-modal").classList.add("active");
+                getTask(task.id);
             });
             cell.appendChild(taskItem);
         }
+    }
+
+    //update Task info in Cell
+    function updateTaskInCell(taskId, task){
+        const cell = document.getElementById(taskId);
+        cell.textContent=task.title;
+    }
+
+    //delete Task info in Cell
+    function deleteTaskInCell(taskId){
+        const cell = document.getElementById(taskId);
+        cell.parentNode.removeChild(cell);
+    }
+
+    function updateTaskToModal(task){
+        document.getElementById("taskId").value=task.id;
+        document.getElementById("taskDate").value = task.date;
+        document.getElementById("taskTitle").value=task.title;
+        document.getElementById("taskDescription").value=task.description;
     }
 
     // Initial load: fetch and display tasks from the backend
@@ -155,12 +242,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Close modal functionality
     document.getElementById("close-modal").addEventListener("click", function () {
-        document.getElementById("task-modal-add").classList.remove("active");
-        document.getElementById("task-modal-modify").classList.remove("active");
+        document.getElementById("taskForm").reset();
+        document.getElementById("task-modal").classList.remove("active");
     });
 
-    // Handle task form submission
-    document.getElementById("taskForm").addEventListener("submit", function (e) {
+
+    // Handle add task form submission
+    document.getElementById("addTask").addEventListener("click", function (e) {
         e.preventDefault();
 
         // Gather values from the form fields
@@ -180,7 +268,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Clear the form and close the modal
         document.getElementById("taskForm").reset();
-        document.getElementById("task-modal-add").classList.remove("active");
-        document.getElementById("task-modal-modify").classList.remove("active");
+        document.getElementById("task-modal").classList.remove("active");
+    });
+
+    // Handle update task form submission
+    document.getElementById("updateTask").addEventListener("click", function (e) {
+        e.preventDefault();
+
+        // Gather values from the form fields
+        const taskId=document.getElementById("taskId").value;
+        const taskDate = document.getElementById("taskDate").value;
+        const taskTitle = document.getElementById("taskTitle").value;
+        const taskDescription = document.getElementById("taskDescription").value;
+
+        // Create a task object from the form data
+        const newTaskData = {
+            date: taskDate,
+            title: taskTitle,
+            description: taskDescription
+        };
+
+        // Send a POST request to create the new task
+        updateTask(taskId,newTaskData);
+
+        // Clear the form and close the modal
+        document.getElementById("taskForm").reset();
+        document.getElementById("task-modal").classList.remove("active");
+    });
+    
+    // Handle delete task form submission
+    document.getElementById("deleteTask").addEventListener("click", function (e) {
+        e.preventDefault();
+
+        // Gather values from the form fields
+        const taskId=document.getElementById("taskId").value;
+
+        // Send a DELETE request to create the new task
+        deleteTask(taskId);
+
+        // Clear the form and close the modal
+        document.getElementById("taskForm").reset();
+        document.getElementById("task-modal").classList.remove("active");
     });
 });

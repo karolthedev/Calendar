@@ -76,7 +76,7 @@ app.put("/tasks/:id", (req, res) => {
     res.json(task);
 });
 
-// GET endpoint to update an existing task
+// GET specific task info
 app.get("/tasks/:id", (req, res) => {
     // Get the task id from the URL parameters (as a number)
     const taskId = Number(req.params.id);

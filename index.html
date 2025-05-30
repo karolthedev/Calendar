@@ -25,10 +25,13 @@
     </main>
 
     <!-- Modal for Adding a Task -->
-    <div class="modal" id="task-modal-add">
+    <div class="modal" id="task-modal">
         <div class="modal-content">
             <h2>Add a Task</h2>
             <form id="taskForm">
+
+                <input type="hidden" id="taskId">
+
                 <!-- Date Input -->
                 <label for="taskDate">Date:</label>
                 <input type="date" id="taskDate" name="taskDate" required>
@@ -42,35 +45,16 @@
                 <textarea id="taskDescription" name="taskDescription"></textarea>
 
                 <!-- Submit Button -->
-                <button type="submit">Add Task</button>
+                <button type="submit" id="addTask">Add Task</button>
+                <!-- Update Button -->
+                <button type="submit" id="updateTask">Update Task</button>
+                <!-- Delete Button -->
+                <button type="submit" id="deleteTask">Delete Task</button>
             </form>
             <button id="close-modal">Close</button>
         </div>
     </div>
        
-    <!-- Modal for Edditng or delete a Task -->
-    <div class="modal" id="task-modal-modify">
-        <div class="modal-content">
-            <h2>Task Detail</h2>
-            <form id="taskForm">
-                <!-- Date Input -->
-                <label for="taskDate">Date:</label>
-                <input type="date" id="taskDate" name="taskDate" required>
-
-                <!-- Title Input -->
-                <label for="taskTitle">Title:</label>
-                <input type="text" id="taskTitle" name="taskTitle" required>
-
-                <!-- Description Input -->
-                <label for="taskDescription">Description:</label>
-                <textarea id="taskDescription" name="taskDescription"></textarea>
-
-                <!-- Submit Button -->
-                <button type="submit">Add Task</button>
-            </form>
-            <button id="close-modal">Close</button>
-        </div>
-    </div>
 
 </body>
 </html>
