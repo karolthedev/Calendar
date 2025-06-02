@@ -37,9 +37,10 @@ document.addEventListener("DOMContentLoaded", function () {
             cell.textContent = dayDate.getDate(); // Display only day number
             cell.dataset.date = dayDate.toISOString().split("T")[0]; // Store full date for backend matching
 
-            // Attach event listener for opening modal
+            // Attach event listener for opening modal to Add Task
             cell.addEventListener("click", function () {
                 document.getElementById("task-modal").classList.add("active");
+                document.getElementById("modal-title").innerText="Add Task";
                 document.getElementById("taskDate").value = this.dataset.date;
             });
 
@@ -98,9 +99,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     taskItem.classList.add("task-item");
                     taskItem.setAttribute("id",task.id);
                     
-                    //click to open modal
+                    //click to open modal for add new Task
                     taskItem.addEventListener("click", function () {
                         document.getElementById("task-modal").classList.add("active");
+                        document.getElementById("modal-title").innerText="Add Task";
                         getTask(task.id);
             });
 
@@ -209,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
             taskItem.classList.add("task-item");
             taskItem.setAttribute("id",task.id);
 
-            //click to open modal
+            //click to open modal for modification
             taskItem.addEventListener("click", function () {
                 document.getElementById("task-modal").classList.add("active");
                 getTask(task.id);
@@ -235,6 +237,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("taskDate").value = task.date;
         document.getElementById("taskTitle").value=task.title;
         document.getElementById("taskDescription").value=task.description;
+        document.getElementById("modal-title").innerText="Edit/Delete Task";
+        document.getElementById("addButton").setAttribute("hidden","hidden");
+        document.getElementById("updateButton").removeAttribute("hidden");
+        document.getElementById("deleteButton").removeAttribute("hidden");
     }
 
     // Initial load: fetch and display tasks from the backend
@@ -244,11 +250,14 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("close-modal").addEventListener("click", function () {
         document.getElementById("taskForm").reset();
         document.getElementById("task-modal").classList.remove("active");
+        document.getElementById("addButton").removeAttribute("hidden");
+        document.getElementById("updateButton").setAttribute("hidden","hidden");
+        document.getElementById("deleteButton").setAttribute("hidden","hidden");
     });
 
 
     // Handle add task form submission
-    document.getElementById("addTask").addEventListener("click", function (e) {
+    document.getElementById("addButton").addEventListener("click", function (e) {
         e.preventDefault();
 
         // Gather values from the form fields
@@ -272,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Handle update task form submission
-    document.getElementById("updateTask").addEventListener("click", function (e) {
+    document.getElementById("updateButton").addEventListener("click", function (e) {
         e.preventDefault();
 
         // Gather values from the form fields
@@ -297,7 +306,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     
     // Handle delete task form submission
-    document.getElementById("deleteTask").addEventListener("click", function (e) {
+    document.getElementById("deleteButton").addEventListener("click", function (e) {
         e.preventDefault();
 
         // Gather values from the form fields

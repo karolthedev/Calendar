@@ -8,6 +8,10 @@ body {
     text-align: center;
 }
 
+input {
+    margin-bottom: 20px;
+}
+
 /* Calendar Navigation */
 .navigation {
     display: flex;
@@ -118,6 +122,19 @@ body {
     text-align: center;
 }
 
+.modal-btn {
+    margin-top: 20px;
+    background-color: #dda2ba;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.modal-btn:hover {
+    background-color: #a07ac0;
+}
+
 /* Close Button */
 #close-modal {
     margin-top: 12px;
@@ -132,3 +149,4 @@ body {
 #close-modal:hover {
     background-color: #c82333;
 }
+
