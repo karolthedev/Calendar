@@ -118,23 +118,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response.json();
             })
             .then(newTask => {
-                appendTaskToCell(newTask);
+                updateCalendar();
             })
             .catch(error => {
                 console.error("Error creating task:", error);
             });
-    }
-
-    // Function to append a new task element to the correct calendar cell
-    function appendTaskToCell(task) {
-        const cells = Array.from(document.querySelectorAll(".date-cell"));
-        const cell = cells.find(c => c.dataset.date === task.date);
-        if (cell) {
-            const taskItem = document.createElement("div");
-            taskItem.textContent = task.title;
-            taskItem.classList.add("task-item");
-            cell.appendChild(taskItem);
-        }
     }
 
     // Initial load: fetch and display tasks from the backend

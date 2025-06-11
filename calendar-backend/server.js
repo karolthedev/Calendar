@@ -20,11 +20,16 @@ let tasks = [];
 
 // GET endpoint to retrieve all tasks
 app.get("/tasks", async (req, res) => {
-    // Return a JSON object containing all tasks
-    // res.json({ tasks: tasks });
     try {
         const { rows } = await pool.query("SELECT * FROM tasks");
-        res.json({tasks: rows});
+
+        // Format the date to match `YYYY-MM-DD`
+        const formattedTasks = rows.map(task => ({
+            ...task,
+            date: task.date instanceof Date ? task.date.toISOString().split("T")[0] : task.date
+        }));
+
+        res.json({ tasks: formattedTasks });
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ error: "Internal Server Error" });
