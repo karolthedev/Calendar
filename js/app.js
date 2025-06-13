@@ -96,6 +96,36 @@ document.addEventListener("DOMContentLoaded", function () {
                     const taskItem = document.createElement("div");
                     taskItem.textContent = task.title;
                     taskItem.classList.add("task-item");
+
+                    // Attach event listener for opening modal
+                    taskItem.addEventListener("click", function (event) {
+                        // Stop it from bubbling to parent elements
+                        event.stopPropagation();
+
+                        // Fetch task details
+                        fetch(`http://localhost:3000/tasks/${task.id}`)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error("Network response was not ok");
+                                }
+                                return response.json(); // Parse JSON response
+                            })
+                            .then(data => {
+                                // Access the nested task object
+                                const task_json = data.task;
+
+                                // Now set the description correctly
+                                document.getElementById("task-modal2").classList.add("active");
+                                document.getElementById("taskDate2").value = task_json.date;
+                                document.getElementById("taskTitle2").value = task_json.title;
+                                document.getElementById("taskDescription2").value = task_json.description;
+
+                            })
+                            .catch(error => {
+                                console.error("Error fetching task:", error);
+                            });
+                    });
+
                     cell.appendChild(taskItem);
                 }
             }
@@ -133,6 +163,11 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("task-modal").classList.remove("active");
     });
 
+    // Close modal2 functionality
+    document.getElementById("close-modal2").addEventListener("click", function () {
+        document.getElementById("task-modal2").classList.remove("active");
+    });
+
     // Handle task form submission
     document.getElementById("taskForm").addEventListener("submit", function (e) {
         e.preventDefault();
@@ -150,6 +185,31 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         // Send a POST request to create the new task
+        createTask(newTaskData);
+
+        // Clear the form and close the modal
+        document.getElementById("taskForm").reset();
+        document.getElementById("task-modal").classList.remove("active");
+    });
+
+
+    // Handle task form submission for modal 2
+    document.getElementById("taskForm2").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Gather values from the form fields
+        const taskDate = document.getElementById("taskDate2").value;
+        const taskTitle = document.getElementById("taskTitle2").value;
+        const taskDescription = document.getElementById("taskDescription2").value;
+
+        // Create a task object from the form data
+        const newTaskData = {
+            date: taskDate,
+            title: taskTitle,
+            description: taskDescription
+        };
+
+        // Send a PUT request to create the new task
         createTask(newTaskData);
 
         // Clear the form and close the modal

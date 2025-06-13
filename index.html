@@ -44,9 +44,35 @@
                 <!-- Submit Button -->
                 <button type="submit">Add Task</button>
             </form>
-            <button id="close-modal">Close</button>
+            <button id="close-modal" class="close-modal-button">Close</button>
         </div>
     </div>
 
+
+    <!-- Modal for checking and updating a Task -->
+    <div class="modal" id="task-modal2">
+        <div class="modal-content">
+            <h2>Add a Task</h2>
+            <form id="taskForm2">
+                <!-- Date Input -->
+                <label for="taskDate">Date:</label>
+                <input type="date" id="taskDate2" name="taskDate" required>
+
+                <!-- Title Input -->
+                <label for="taskTitle">Title:</label>
+                <input type="text" id="taskTitle2" name="taskTitle" required>
+
+                <!-- Description Input -->
+                <label for="taskDescription">Description:</label>
+                <textarea id="taskDescription2" name="taskDescription"></textarea>
+
+                <!-- Submit Button -->
+                <button type="submit">Delete Task</button>
+                <button type="submit">Modify Task</button>
+                
+            </form>
+            <button id="close-modal2" class="close-modal-button">Close</button>
+        </div>
+    </div>
 </body>
 </html>
