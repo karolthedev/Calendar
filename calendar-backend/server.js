@@ -91,40 +91,19 @@ app.put("/tasks/:id", async (req, res) => {
         const { id } = req.params;
         const { date, title, description } = req.body;
 
-        let query = "UPDATE tasks SET ";
-        let values = [];
-        let index = 1;
-
-        if (date) {
-            query += `date = $${index}, `;
-            values.push(date);
-            index++;
-        }
-        if (title) {
-            query += `title = $${index}, `;
-            values.push(title);
-            index++;
-        }
-        if (description) {
-            query += `description = $${index}`;
-            index++;
-        }
-
-        if (values.length === 0) {
-            return res.status(400).json({ error: "At least one field must be provided" });
-        }
-
-        query = query.replace(/, $/, " ");
-        query += `WHERE id = $${index}`;
-        values.push(id);
+        // Directly update all fields since none are missing
+        const query = `UPDATE tasks SET date = $1, title = $2, description = $3 WHERE id = $4`;
+        const values = [date, title, description, id];
 
         await pool.query(query, values);
+
         res.json({ message: "Task updated successfully!" });
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
 
 // DELETE endpoint to remove a task
 app.delete("/tasks/:id", async (req, res) => {

@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const taskItem = document.createElement("div");
                     taskItem.textContent = task.title;
                     taskItem.classList.add("task-item");
+                    taskItem.id = task.id;
 
                     // Attach event listener for opening modal
                     taskItem.addEventListener("click", function (event) {
@@ -119,6 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 document.getElementById("taskDate2").value = task_json.date;
                                 document.getElementById("taskTitle2").value = task_json.title;
                                 document.getElementById("taskDescription2").value = task_json.description;
+                                document.getElementById("taskID2").value = task_json.id;
 
                             })
                             .catch(error => {
@@ -193,27 +195,69 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    // Handle task form submission for modal 2
+    // Handle task form buttons for modal 2
     document.getElementById("taskForm2").addEventListener("submit", function (e) {
         e.preventDefault();
 
-        // Gather values from the form fields
-        const taskDate = document.getElementById("taskDate2").value;
-        const taskTitle = document.getElementById("taskTitle2").value;
-        const taskDescription = document.getElementById("taskDescription2").value;
+        // Identify which button was clicked
+        const clickedButton = e.submitter.textContent.trim(); // Gets the button text
+        const taskID = document.getElementById("taskID2").value;
 
-        // Create a task object from the form data
-        const newTaskData = {
-            date: taskDate,
-            title: taskTitle,
-            description: taskDescription
-        };
+        if (clickedButton === "Delete Task") {
+            // DELETE request
+            fetch(`http://localhost:3000/tasks/${taskID}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to delete task");
+                    }
+                    return response.json();
+                })
+                .then(() => {
+                    updateCalendar();
+                })
+                .catch(error => {
+                    console.error("Error deleting task:", error);
+                });
+                
+        } else if (clickedButton === "Modify Task") {
+            // UPDATE request
+            const updatedTask = {
+                date: document.getElementById("taskDate2").value,
+                title: document.getElementById("taskTitle2").value,
+                description: document.getElementById("taskDescription2").value
+            };
 
-        // Send a PUT request to create the new task
-        createTask(newTaskData);
+            fetch(`http://localhost:3000/tasks/${taskID}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedTask)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to update task");
+                    }
+                    return response.json();
+                })
+                .then(() => {
+                    updateCalendar();
+                })
+                .catch(error => {
+                    console.error("Error updating task:", error);
+                });
+        }
 
         // Clear the form and close the modal
-        document.getElementById("taskForm").reset();
-        document.getElementById("task-modal").classList.remove("active");
+        document.getElementById("taskForm2").reset();
+        document.getElementById("task-modal2").classList.remove("active");
     });
 });
+
+
+
