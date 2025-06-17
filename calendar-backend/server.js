@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const pool = require("./db"); // PostgreSQL connection
+const path = require('path');
 
 // Create an instance of Express
 const app = express();
@@ -17,6 +18,9 @@ app.use(express.json());
 
 // In-memory storage for tasks (temporary; in production, you'd use a database)
 let tasks = [];
+
+// Serve static files
+app.use(express.static(path.join(__dirname, '../public')));
 
 // GET endpoint to retrieve all tasks
 app.get("/tasks", async (req, res) => {
