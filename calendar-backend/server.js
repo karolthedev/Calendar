@@ -58,9 +58,7 @@ app.get("/tasks/:id", async (req, res) => {
         };
 
         res.json({ task: formattedTask });
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).json({ error: "Internal Server Error" });
+    } catch (err) {POST
     }
 });
 

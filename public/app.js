@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const weekEnd = new Date(weekStart);
         weekEnd.setDate(weekStart.getDate() + 6); // End of the current week
 
-        fetch("http://localhost:3000/tasks")
+        fetch("/tasks")
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         event.stopPropagation();
 
                         // Fetch task details
-                        fetch(`http://localhost:3000/tasks/${task.id}`)
+                        fetch(`/tasks/${task.id}`)
                             .then(response => {
                                 if (!response.ok) {
                                     throw new Error("Network response was not ok");
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to send a POST request to create a new task
     function createTask(taskData) {
-        fetch("http://localhost:3000/tasks", {
+        fetch("/tasks", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (clickedButton === "Delete Task") {
             // DELETE request
-            fetch(`http://localhost:3000/tasks/${taskID}`, {
+            fetch(`/tasks/${taskID}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 description: document.getElementById("taskDescription2").value
             };
 
-            fetch(`http://localhost:3000/tasks/${taskID}`, {
+            fetch(`/tasks/${taskID}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
