@@ -87,6 +87,9 @@ body {
     text-wrap: wrap;
 }
 
+.task-item:hover { background-color: red; }
+
+
 /* Modal Styles */
 .modal {
     display: none;
