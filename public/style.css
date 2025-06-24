@@ -115,7 +115,7 @@ body {
 }
 
 /* Close Button */
-.close-modal-button{
+.close-modal-button {
     margin-top: 12px;
     border: none;
     background-color: #dc3545;
@@ -125,8 +125,15 @@ body {
     cursor: pointer;
 }
 
-.close-modal-button{
-    background-color: #c82333;
+/* First row in modal content*/
+.first_row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
 }
 
+*[name="taskDescription"] {
+    width: 394px;
+    height: 125px;
+}
 
