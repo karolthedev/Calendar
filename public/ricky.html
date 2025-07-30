@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricky's Calendar</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./ricky.js" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>Ricky's Calendar</h1>
+        <div class="navigation">
+            <button id="prevWeek" class="nav-btn">&lt;</button>
+            <span id="weekDisplay"></span>
+            <button id="nextWeek" class="nav-btn">&gt;</button>
+        </div>
+    </header>
+
+
+    <!-- Calendar Grid (Updated Dynamically) -->
+    <main>
+        <div class="calendar-grid" id="calendarGrid"></div>
+    </main>
+
+    <!-- Modal for Adding a Task -->
+    <div class="modal" id="task-modal">
+        <div class="modal-content">
+            <h2>Add a Task</h2>
+            <form id="taskForm">
+                <div class="first_row">
+                    <div class="date">
+                        <!-- Date Input -->
+                        <label for="taskDate">Date:</label>
+                        <input type="date" id="taskDate" name="taskDate" required>
+                    </div>
+                    
+                    <div class="title">
+                        <!-- Title Input -->
+                        <label for="taskTitle">Title:</label>
+                        <input type="text" id="taskTitle" name="taskTitle" required>
+                    </div>
+                </div>
+
+                <!-- Description Input -->
+                <label for="taskDescription">Description:</label>
+                <textarea id="taskDescription" name="taskDescription"></textarea>
+
+                <!-- Submit Button -->
+                <button type="submit">Add Task</button>
+            </form>
+            <button id="close-modal" class="close-modal-button">Close</button>
+        </div>
+    </div>
+
+
+    <!-- Modal for checking and updating a Task -->
+    <div class="modal" id="task-modal2">
+        <div class="modal-content">
+            <h2>Task Details</h2>
+            <form id="taskForm2">
+                <div class="first_row">
+                    <div class="date">
+                        <!-- Date Input -->
+                        <label for="taskDate">Date:</label>
+                        <input type="date" id="taskDate2" name="taskDate" required>
+                    </div>
+                    
+                    <div class="title">
+                        <!-- Title Input -->
+                        <label for="taskTitle">Title:</label>
+                        <input type="text" id="taskTitle2" name="taskTitle" required>
+                    </div>
+                </div>
+
+                <!-- Description Input -->
+                <label for="taskDescription">Description:</label>
+                <textarea id="taskDescription2" name="taskDescription"></textarea>
+
+                <!-- ID Input -->
+                <textarea id="taskID2" name="taskID2" style="display: none;"></textarea>
+
+                <!-- Submit Button -->
+                <button type="submit">Modify Task</button>
+                <button type="submit">Delete Task</button>               
+                
+            </form>
+            <button id="close-modal2" class="close-modal-button">Close</button>
+        </div>
+    </div>
+</body>
+</html>

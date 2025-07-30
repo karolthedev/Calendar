@@ -1,0 +1,85 @@
+[7/28/2025, 4:16:39 PM] ::1 - GET / 200 - 10.58ms
+[7/28/2025, 4:16:40 PM] ::1 - GET /style.css 200 - 6.82ms
+[7/28/2025, 4:16:40 PM] ::1 - GET /app.js 200 - 5.05ms
+[7/28/2025, 4:16:40 PM] ::1 - GET /tasks 304 - 86.55ms
+[7/28/2025, 4:16:41 PM] ::1 - GET / 304 - 1.31ms
+[7/28/2025, 4:16:41 PM] ::1 - GET /style.css 304 - 0.94ms
+[7/28/2025, 4:16:41 PM] ::1 - GET /app.js 304 - 0.76ms
+[7/28/2025, 4:16:41 PM] ::1 - GET /tasks 304 - 4.24ms
+[7/28/2025, 4:16:42 PM] ::1 - GET /tasks 304 - 3.43ms
+[7/28/2025, 4:16:42 PM] ::1 - GET /tasks 304 - 3.56ms
+[7/28/2025, 4:16:46 PM] ::1 - GET /tasks 304 - 3.05ms
+[7/28/2025, 4:16:46 PM] ::1 - GET /tasks 304 - 2.77ms
+[7/28/2025, 4:16:47 PM] ::1 - GET /tasks 304 - 4.33ms
+[7/28/2025, 4:16:48 PM] ::1 - GET /tasks 304 - 5.14ms
+[7/28/2025, 4:16:48 PM] ::1 - GET /tasks 304 - 4.35ms
+[7/28/2025, 4:16:49 PM] ::1 - GET /tasks 304 - 2.86ms
+[7/28/2025, 4:16:50 PM] ::1 - GET /tasks 304 - 5.32ms
+[7/28/2025, 4:16:50 PM] ::1 - GET /tasks 304 - 2.38ms
+[7/28/2025, 4:16:50 PM] ::1 - GET /tasks 304 - 2.97ms
+[7/28/2025, 4:16:51 PM] ::1 - GET /tasks 304 - 2.58ms
+[7/30/2025, 3:20:09 PM] ::1 - GET /tasks/ricky 500 - 26.12ms
+[7/30/2025, 3:32:22 PM] ::1 - GET /tasks/ricky 500 - 10.09ms
+[7/30/2025, 3:38:29 PM] ::1 - GET /tasks/ricky 500 - 46.26ms
+[7/30/2025, 3:40:52 PM] ::1 - GET /tasks/ricky/1 200 - 31.20ms
+[7/30/2025, 3:40:56 PM] ::1 - GET /tasks/ricky 500 - 2.06ms
+[7/30/2025, 3:42:16 PM] ::1 - GET /tasks/ricky/1 200 - 16.39ms
+[7/30/2025, 3:42:26 PM] ::1 - GET /tasks/ricky 500 - 3.91ms
+[7/30/2025, 3:44:54 PM] ::1 - GET /tasks/ricky 500 - 34.77ms
+[7/30/2025, 3:48:07 PM] ::1 - GET /tasks/ricky 500 - 45.02ms
+[7/30/2025, 3:48:16 PM] ::1 - GET /tasks_ricky 200 - 13.13ms
+[7/30/2025, 3:53:00 PM] ::1 - GET / 304 - 5.33ms
+[7/30/2025, 3:53:00 PM] ::1 - GET /style.css 304 - 2.34ms
+[7/30/2025, 3:53:00 PM] ::1 - GET /app.js 304 - 2.06ms
+[7/30/2025, 3:53:00 PM] ::1 - GET /tasks 304 - 23.74ms
+[7/30/2025, 3:53:01 PM] ::1 - GET /favicon.ico 404 - 16.01ms
+[7/30/2025, 3:54:09 PM] ::1 - GET /ricky.html 200 - 28.14ms
+[7/30/2025, 3:54:09 PM] ::1 - GET /ricky.js 200 - 7.98ms
+[7/30/2025, 3:54:09 PM] ::1 - GET /style.css 304 - 7.89ms
+[7/30/2025, 3:54:09 PM] ::1 - GET /tasks_ricky 200 - 40.88ms
+[7/30/2025, 3:54:18 PM] ::1 - POST /tasks_ricky 200 - 29.39ms BODY={"date":"2025-08-01","title":"hehe","description":"hihi"}
+[7/30/2025, 3:54:18 PM] ::1 - GET /tasks_ricky 200 - 6.63ms
+[7/30/2025, 3:54:19 PM] ::1 - GET /tasks_ricky/1753905258494 200 - 3.93ms
+[7/30/2025, 3:54:20 PM] ::1 - DELETE /tasks_ricky1753905258494 404 - 1.90ms
+[7/30/2025, 3:54:23 PM] ::1 - GET /style.css 304 - 1.18ms
+[7/30/2025, 3:54:23 PM] ::1 - GET /.well-known/appspecific/com.chrome.devtools.json 404 - 4.28ms
+[7/30/2025, 3:54:28 PM] ::1 - GET /tasks_ricky/1753905258494 304 - 5.30ms
+[7/30/2025, 3:54:29 PM] ::1 - DELETE /tasks_ricky1753905258494 404 - 1.17ms
+[7/30/2025, 3:54:51 PM] ::1 - GET /tasks_ricky/1753905258494 304 - 10.53ms
+[7/30/2025, 3:54:51 PM] ::1 - DELETE /tasks_ricky1753905258494 404 - 2.51ms
+[7/30/2025, 3:55:52 PM] ::1 - GET /tasks_ricky 200 - 7.56ms
+[7/30/2025, 3:56:20 PM] ::1 - GET /tasks_ricky/1 200 - 15.84ms
+[7/30/2025, 3:56:24 PM] ::1 - PUT /tasks_ricky/1 200 - 7.81ms BODY={"date":"2025-08-02","title":"testing","description":"welcome22"}
+[7/30/2025, 3:56:24 PM] ::1 - GET /tasks_ricky 304 - 6.10ms
+[7/30/2025, 3:56:26 PM] ::1 - GET /tasks_ricky/1 200 - 2.97ms
+[7/30/2025, 3:56:42 PM] ::1 - POST /tasks_ricky 200 - 20.45ms BODY={"date":"2025-07-30","title":"fdsfadsa","description":"fdsafdsafds"}
+[7/30/2025, 3:56:42 PM] ::1 - GET /tasks_ricky 200 - 3.62ms
+[7/30/2025, 3:56:43 PM] ::1 - GET /tasks_ricky/1753905402633 200 - 5.35ms
+[7/30/2025, 3:56:49 PM] ::1 - PUT /tasks_ricky/1753905402633 200 - 5.48ms BODY={"date":"2025-07-30","title":"fdsfadsa123","description":"fdsafdsafdsf"}
+[7/30/2025, 3:56:49 PM] ::1 - GET /tasks_ricky 304 - 2.45ms
+[7/30/2025, 3:57:09 PM] ::1 - GET /tasks_ricky/1753905402633 200 - 18.09ms
+[7/30/2025, 3:57:11 PM] ::1 - PUT /tasks_ricky/1753905402633 200 - 4.86ms BODY={"date":"2025-07-30","title":"fdsfadsa123","description":"fdsafdsafds"}
+[7/30/2025, 3:57:11 PM] ::1 - GET /tasks_ricky 304 - 5.45ms
+[7/30/2025, 4:02:11 PM] ::1 - GET /tasks_ricky/1753905402633 200 - 37.10ms
+[7/30/2025, 4:02:15 PM] ::1 - PUT /tasks_ricky/1753905402633 200 - 29.64ms BODY={"date":"2025-07-30","title":"fdsfadsa123","description":"fdsafdsafds"}
+[7/30/2025, 4:02:15 PM] ::1 - GET /tasks_ricky 304 - 7.72ms
+[7/30/2025, 4:03:10 PM] ::1 - GET /tasks_ricky/1753905402633 200 - 43.21ms
+[7/30/2025, 4:03:12 PM] ::1 - PUT /tasks_ricky/1753905402633 200 - 28.86ms BODY={"date":"2025-07-30","title":"123fdsfadsa","description":"fdsafdsafds"}
+[7/30/2025, 4:03:12 PM] ::1 - GET /tasks_ricky 200 - 5.48ms
+[7/30/2025, 4:04:20 PM] ::1 - GET /tasks_ricky/1753905402633 200 - 41.12ms
+[7/30/2025, 4:04:21 PM] ::1 - DELETE /tasks_ricky1753905402633 404 - 10.12ms
+[7/30/2025, 4:04:55 PM] ::1 - GET /tasks_ricky/1753905402633 304 - 15.29ms
+[7/30/2025, 4:04:58 PM] ::1 - GET /tasks_ricky/1753905402633 304 - 4.33ms
+[7/30/2025, 4:04:59 PM] ::1 - DELETE /tasks_ricky1753905402633 404 - 3.91ms
+[7/30/2025, 4:05:02 PM] ::1 - GET /tasks_ricky/1753905402633 304 - 7.67ms
+[7/30/2025, 4:05:03 PM] ::1 - DELETE /tasks_ricky1753905402633 404 - 3.22ms
+[7/30/2025, 4:05:17 PM] ::1 - GET /ricky.html 304 - 7.45ms
+[7/30/2025, 4:05:18 PM] ::1 - GET /style.css 304 - 7.45ms
+[7/30/2025, 4:05:18 PM] ::1 - GET /ricky.js 200 - 18.02ms
+[7/30/2025, 4:05:18 PM] ::1 - GET /tasks_ricky 304 - 33.27ms
+[7/30/2025, 4:05:19 PM] ::1 - GET /tasks_ricky/1753905402633 304 - 3.14ms
+[7/30/2025, 4:05:23 PM] ::1 - PUT /tasks_ricky/1753905402633 200 - 21.31ms BODY={"date":"2025-07-30","title":"123fdsfadsaf","description":"fdsafdsafds"}
+[7/30/2025, 4:05:23 PM] ::1 - GET /tasks_ricky 200 - 3.14ms
+[7/30/2025, 4:05:24 PM] ::1 - GET /tasks_ricky/1753905402633 200 - 2.19ms
+[7/30/2025, 4:05:24 PM] ::1 - DELETE /tasks_ricky/1753905402633 200 - 3.53ms
+[7/30/2025, 4:05:24 PM] ::1 - GET /tasks_ricky 200 - 1.50ms
